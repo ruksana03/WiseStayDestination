@@ -3,22 +3,19 @@
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BookingForm = ({ roomNo, price, discount }) => {
   const { user } = useAuth();
-  console.log(user)
-  const formRef = useRef()
-
+  const formRef = useRef();
   const goto = useNavigate();
 
+  const [booked, setBooked] = useState(false);
 
   const handleBooking = (e) => {
     e.preventDefault();
     const form = e.target;
-
-    
 
     const booking = {
       userEmail: form.userEmail?.value || "Not-Given",
@@ -32,26 +29,49 @@ const BookingForm = ({ roomNo, price, discount }) => {
 
     console.log(booking);
 
-    axios.post('http://localhost:5000/booking', booking)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Room Booked successfully.',
-        }).then(() => {
-          form.reset();
-          goto('/myBookings')
-        });
-      })
-      .catch((error) => {
-        console.error(error)
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: 'An error occurred while posting data.',
-        });
-      });
+  //   axios.post('http://localhost:5000/booking', booking)
+  //     .then((res) => {
+  //       console.log(res);
+
+  //       // Perform room availability check
+  //       axios.get('http://localhost:5000/booking', booking)
+  //         .then((availabilityRes) => {
+  //           console.log(availabilityRes);
+
+  //           const bookedRoom = availabilityRes.data.find(item => item.roomNum === data.roomNum);
+
+  //           if (bookedRoom) {
+  //             setBooked(true);
+  //             Swal.fire({
+  //               title: "This room is not available",
+  //               icon: "info",
+  //             });
+  //           } else {
+  //             setBooked(false);
+
+  //             Swal.fire({
+  //               icon: 'success',
+  //               title: 'Success!',
+  //               text: 'Room Booked successfully.',
+  //             }).then(() => {
+  //               form.reset();
+  //               goto('/myBookings');
+  //             });
+  //           }
+  //         })
+  //         .catch((availabilityError) => {
+  //           console.error('Error checking room availability:', availabilityError);
+  //           setBooked(false);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Error!',
+  //         text: 'An error occurred while posting data.',
+  //       });
+  //     });
   };
 
 
