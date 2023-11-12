@@ -1,7 +1,15 @@
+import axios from "axios";
+import Swal from "sweetalert2";
+import { FaBan } from "react-icons/fa6";
+import { AiFillDelete } from "react-icons/ai";
+import { GrUpdate } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
 
-const BookingList = ({ CurrentUserBooking }) => {
+const BookingList = ({ CurrentUserBooking,refetch }) => {
   const { _id, userEmail, checkInDate, checkOutDate, guestNumber, roomNum, roomPrice, discount } = CurrentUserBooking || {};
+
+  const goto = useNavigate();
 
 
   // Convert check-in and check-out dates to JavaScript Date objects
@@ -27,8 +35,40 @@ const BookingList = ({ CurrentUserBooking }) => {
     finalTotalPrice = totalPriceWithoutDiscount - discountAmount;
   }
 
+
+  const today = new Date();
+  const isCancellationAllowed = today < checkIn - 24 * 60 * 60 * 1000; // 24 hours before check-in
+
+  const handleCancelBooking = (_id) => {
+    console.log(_id)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:5000/bookings/${_id}`)
+          .then((res) => {
+            if (res.data.deletedCount > 0) {
+              Swal.fire("has been deleted!", "success");
+              refetch();
+            }
+          })
+          .catch((error) => {
+            console.error('Error deleting the room:', error);
+            Swal.fire('Error', 'An error occurred while deleting the room.', 'error');
+          });
+      }
+    });
+  };
+
   return (
-    <tr className="text-center">
+    <tr className="text-center border-b border-black">
       <td>{roomNum}</td>
       <td>{checkInDate}</td>
       <td>{checkOutDate}</td>
@@ -37,6 +77,8 @@ const BookingList = ({ CurrentUserBooking }) => {
       <td>{totalPriceWithoutDiscount}</td>
       <td>{discount}</td>
       <td>{!isNaN(finalTotalPrice) ? finalTotalPrice : totalPriceWithoutDiscount}</td> 
+      <td>{isCancellationAllowed ? <button onClick={() => handleCancelBooking(_id)} className="border-2 border-red-950 rounded-full p-2 bg-red-950 text-white"><AiFillDelete></AiFillDelete></button> : <FaBan className="mx-auto"></FaBan>}</td>
+      <td><button onClick={()=>goto(`/updateBooking/${_id}`)}><GrUpdate></GrUpdate></button></td>
     </tr>
   );
 };

@@ -5,6 +5,7 @@ import useAuth from "../Hooks/useAuth";
 import { useEffect, useState } from "react";
 
 
+
 const MyBooking = () => {
     const { user } = useAuth();
     // const userEmail = user.email;
@@ -40,7 +41,7 @@ const MyBooking = () => {
 
             <div>
                 <table className="border border-zinc-900 w-10/12 mx-auto ">
-                    <thead>
+                    <thead className="border-b border-black">
                         <tr>
                             <th>Room No</th>
                             <th>CheckIn</th>
@@ -50,11 +51,13 @@ const MyBooking = () => {
                             <th>Total Price </th>
                             <th>DisCount(%)</th>
                             <th>FinalTotalPrice</th>
+                            <th>Cancelation</th>
+                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentUserBookings.map((currentUserBooking) => (
-                            <BookingList key={currentUserBooking._id} CurrentUserBooking={currentUserBooking} />
+                            <BookingList key={currentUserBooking._id} CurrentUserBooking={currentUserBooking} refetch={refetch} />
                         ))}
                     </tbody>
                 </table>
