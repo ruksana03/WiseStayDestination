@@ -13,7 +13,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
 
   const [booked, setBooked] = useState(false);
 
-  const handleBooking = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
     const form = e.target;
 
@@ -21,57 +21,58 @@ const BookingForm = ({ roomNo, price, discount }) => {
       userEmail: form.userEmail?.value || "Not-Given",
       checkInDate: form.checkInDate?.value || "not-Given",
       checkOutDate: form.checkOutDate?.value || "not-Given",
-      guestNumber: form.guestNumber?.value || "Not=Given",
+      guestNumber: form.guestNumber?.value || "Not-Given",
       roomNum: form.roomNum?.value || "not-Given",
       roomPrice: form.roomPrice?.value || "not-Given",
       discount: form.discount?.value || "not-Given",
     };
 
-    console.log(booking);
+    // Step 1: Check Room Availability
+    const isRoomAvailable = await checkRoomAvailability(booking.roomNum, booking.checkInDate, booking.checkOutDate);
 
-  //   axios.post('http://localhost:5000/booking', booking)
-  //     .then((res) => {
-  //       console.log(res);
+    // Step 2: Handle Booking
+    if (isRoomAvailable) {
+      // Room is available, proceed with booking
+      try {
+        const response = await axios.post('http://localhost:5000/booking', booking);
+        console.log('Booking successful:', response.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Booking Successful!',
+          text: 'Your booking has been confirmed.',
+        });
+        setBooked(true);
+      } catch (error) {
+        console.error('Error while booking:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Booking Error',
+          text: 'An error occurred while processing your booking. Please try again later.',})
+      }
+    } else {
+      // Room is not available, handle accordingly (e.g., show an error message)
+      console.log('Room not available for the selected dates');
+      Swal.fire({
+        icon: 'error',
+        title: 'Room Not Available',
+        text: 'The selected room is not available for the specified dates. Please choose a different room or date range.',})
+    }
+  };
 
-  //       // Perform room availability check
-  //       axios.get('http://localhost:5000/booking', booking)
-  //         .then((availabilityRes) => {
-  //           console.log(availabilityRes);
-
-  //           const bookedRoom = availabilityRes.data.find(item => item.roomNum === data.roomNum);
-
-  //           if (bookedRoom) {
-  //             setBooked(true);
-  //             Swal.fire({
-  //               title: "This room is not available",
-  //               icon: "info",
-  //             });
-  //           } else {
-  //             setBooked(false);
-
-  //             Swal.fire({
-  //               icon: 'success',
-  //               title: 'Success!',
-  //               text: 'Room Booked successfully.',
-  //             }).then(() => {
-  //               form.reset();
-  //               goto('/myBookings');
-  //             });
-  //           }
-  //         })
-  //         .catch((availabilityError) => {
-  //           console.error('Error checking room availability:', availabilityError);
-  //           setBooked(false);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       Swal.fire({
-  //         icon: 'error',
-  //         title: 'Error!',
-  //         text: 'An error occurred while posting data.',
-  //       });
-  //     });
+  // Function to check room availability
+  const checkRoomAvailability = async (roomNum, checkInDate, checkOutDate) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/checkAvailability?roomNum=${roomNum}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
+      return response.data.available; // Assuming the server returns { available: true/false }
+    } catch (error) {
+      console.error('Error while checking room availability:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Availability Check Error',
+        text: 'An error occurred while checking room availability. Please try again later.',
+      });
+      return false; // Handle error scenario
+    }
   };
 
 
@@ -148,6 +149,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
         }
         <button type="submit">Book Now</button>
       </form>
+      {booked && <p>Booking successful!</p>}
     </div>
   );
 };

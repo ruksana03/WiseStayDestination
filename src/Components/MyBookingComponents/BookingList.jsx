@@ -1,36 +1,44 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 
-const BookingList = ({email}) => {
-    const [bookings, setBookings] = useState([]);
+const BookingList = ({ CurrentUserBooking }) => {
+  const { _id, userEmail, checkInDate, checkOutDate, guestNumber, roomNum, roomPrice, discount } = CurrentUserBooking || {};
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:5000/bookings?email=${email}`);
-          setBookings(response.data);
-        } catch (error) {
-          console.error('Error fetching bookings:', error);
-        }
-      };
-  
-      fetchData();
-    }, [email]);
-  
-    console.log(email)
-    return (
-        <div>
-        <h2>Bookings for {email}</h2>
-        <ul>
-          {bookings.map((booking) => (
-            <li key={booking._id}>
-              Check-in: {booking.checkInDate}, Check-out: {booking.checkOutDate}, Room: {booking.roomNum}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+
+  // Convert check-in and check-out dates to JavaScript Date objects
+  const checkIn = new Date(checkInDate);
+  const checkOut = new Date(checkOutDate);
+
+  // Calculate the total days of stay
+  const totalDays = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+
+  // Calculate the total price without discount
+  const totalPriceWithoutDiscount = totalDays * roomPrice;
+
+  // Initialize variables for discount-related calculations
+  let discountAmount = 0;
+  let finalTotalPrice = totalPriceWithoutDiscount;
+
+  // Check if a discount is provided
+  if (!isNaN(parseFloat(discount)) && isFinite(discount)) {
+    // Calculate the discounted amount
+    discountAmount = (discount / 100) * totalPriceWithoutDiscount;
+
+    // Calculate the final total price after applying the discount
+    finalTotalPrice = totalPriceWithoutDiscount - discountAmount;
+  }
+
+  return (
+    <tr className="text-center">
+      <td>{roomNum}</td>
+      <td>{checkInDate}</td>
+      <td>{checkOutDate}</td>
+      <td>{roomPrice}</td>
+      <td>{totalDays}</td>
+      <td>{totalPriceWithoutDiscount}</td>
+      <td>{discount}</td>
+      <td>{!isNaN(finalTotalPrice) ? finalTotalPrice : totalPriceWithoutDiscount}</td> 
+    </tr>
+  );
 };
 
 export default BookingList;
