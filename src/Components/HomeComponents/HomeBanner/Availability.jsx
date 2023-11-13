@@ -13,12 +13,20 @@ const Availability = () => {
         queryKey: ['allRoomData'],
         queryFn: () =>
             fetch('http://localhost:5000/rooms').then((res) => res.json()),
+            onSuccess: (data) => {
+                // Handle logic after room data is successfully fetched
+                console.log('Room data fetched successfully:', data);
+            },
     });
 
     const { isPending: isBookingsPending, error: bookingsError, data: bookingsData } = useQuery({
         queryKey: ['allBookings'],
         queryFn: () =>
             fetch('http://localhost:5000/bookings').then((res) => res.json()),
+            onSuccess: (data) => {
+                // Handle logic after bookings data is successfully fetched
+                console.log('Bookings data fetched successfully:', data);
+            },
     });
 
     const findAvailableRooms = (allRooms, allBookings, checkInDate, checkOutDate) => {
