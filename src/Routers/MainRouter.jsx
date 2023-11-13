@@ -28,6 +28,7 @@ import MyBooking from "../Pages/MyBooking";
 // import Reservation from "../Components/RoomDetailsComponents/Reservation";
 import ReservationRoom from "../Pages/ReservationRoom";
 import UpdateBookingInfo from "../Components/MyBookingComponents/UpdateBookingInfo";
+import UserReviewForm from "../Components/RoomDetailsComponents/UserReviewForm";
 
 
 
@@ -92,6 +93,11 @@ const MainRouter = createBrowserRouter([
                 path:'/roomDetails/:id',
                 element:<PrivateRouter><RoomDetails></RoomDetails></PrivateRouter>,
                 loader: ({params}) => fetch(`http://localhost:5000/rooms/${params.id}`)
+            },
+            {
+                path:'/reviewForm/:id',
+                element:<PrivateRouter><UserReviewForm></UserReviewForm></PrivateRouter>,
+                loader: ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
             },
             {
                 path:'/myBookings',

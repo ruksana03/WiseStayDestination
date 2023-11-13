@@ -1,6 +1,7 @@
 import { Carousel } from "react-responsive-carousel";
 
 const FilterCardImages = ({ imageUrls }) => {
+    
     if (imageUrls.length > 0) {
         return (
             <div className="">

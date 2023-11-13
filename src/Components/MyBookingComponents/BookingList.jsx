@@ -5,6 +5,8 @@ import { AiFillDelete } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 
+import { MdReviews } from "react-icons/md";
+
 
 const BookingList = ({ CurrentUserBooking,refetch }) => {
   const { _id, userEmail, checkInDate, checkOutDate, guestNumber, roomNum, roomPrice, discount } = CurrentUserBooking || {};
@@ -79,6 +81,7 @@ const BookingList = ({ CurrentUserBooking,refetch }) => {
       <td>{!isNaN(finalTotalPrice) ? finalTotalPrice : totalPriceWithoutDiscount}</td> 
       <td>{isCancellationAllowed ? <button onClick={() => handleCancelBooking(_id)} className="border-2 border-red-950 rounded-full p-2 bg-red-950 text-white"><AiFillDelete></AiFillDelete></button> : <FaBan className="mx-auto"></FaBan>}</td>
       <td><button onClick={()=>goto(`/updateBooking/${_id}`)}><GrUpdate></GrUpdate></button></td>
+      <td><button onClick={()=>goto(`/reviewForm/${_id}`)}><MdReviews></MdReviews></button></td>
     </tr>
   );
 };

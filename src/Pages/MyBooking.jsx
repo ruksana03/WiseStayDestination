@@ -53,6 +53,7 @@ const MyBooking = () => {
                             <th>FinalTotalPrice</th>
                             <th>Cancelation</th>
                             <th>Update</th>
+                            <th>Review</th>
                         </tr>
                     </thead>
                     <tbody>
