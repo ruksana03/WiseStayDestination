@@ -1,4 +1,4 @@
-import HomeBannerText from "./HomeBannerText";
+// import HomeBannerText from "./HomeBannerText";
 
 
 const BannerSwiper = ({ image }) => {
@@ -12,7 +12,7 @@ const BannerSwiper = ({ image }) => {
                     transformOrigin: "center center",
                     backgroundSize: "cover"}}>
                 <div className="bg-opacity-50 bg-[#53624E]"></div>
-                <div><HomeBannerText></HomeBannerText></div>
+                {/* <div><HomeBannerText></HomeBannerText></div> */}
             </div>
 
          
