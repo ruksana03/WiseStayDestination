@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 
 const Menus = () => {
-    const links = ['','rooms','aboutTheHotel','myBookings','dashboard','contact'];
-    const menuNames = ['Home','Rooms', 'About The Hotel','My Bookings' ,'Dashboard','Contact Us'];
+    const links = ['','rooms','aboutTheHotel','myBookings','dashboard','contact','testimonials'];
+    const menuNames = ['Home','Rooms', 'About The Hotel','My Bookings' ,'Dashboard','Contact Us','Testimonial'];
     return (
         <div className="font-poppins flex flex-col lg:flex-row lg:gap-4">
             {

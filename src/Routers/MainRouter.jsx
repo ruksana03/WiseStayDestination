@@ -29,6 +29,7 @@ import MyBooking from "../Pages/MyBooking";
 import ReservationRoom from "../Pages/ReservationRoom";
 import UpdateBookingInfo from "../Components/MyBookingComponents/UpdateBookingInfo";
 import UserReviewForm from "../Components/RoomDetailsComponents/UserReviewForm";
+import OurTestimonial from "../Pages/OurTestimonial";
 
 
 
@@ -59,8 +60,8 @@ const MainRouter = createBrowserRouter([
                 element:<Contact></Contact>
             },
             {
-                path:'/userReview',
-                element:<PrivateRouter><UserReview></UserReview></PrivateRouter>
+                path:'/testimonials',
+                element:<OurTestimonial></OurTestimonial>
             },
             {
                 path:'/aboutTheHotel',

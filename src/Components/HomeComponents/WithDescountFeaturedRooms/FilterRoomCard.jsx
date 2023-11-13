@@ -46,7 +46,7 @@ const FilterRoomCard = ({ filteredRoom }) => {
                 <Link to={`/roomDetails/${_id}`}>
                     <button
                         className="underline flex justify-center items-center my-4 hover:text-xl">
-                        View Details
+                        Book Now
                         <span>
                             <IoIosArrowForward>
                             </IoIosArrowForward>

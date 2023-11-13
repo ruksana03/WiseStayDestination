@@ -32,8 +32,9 @@ const UserReview = () => {
     };
 
     return (
-        <div className="max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Submit a Review</h2>
+        <div className="max-w-lg mx-auto my-8">
+            <h2 className="text-2xl font-bold mb-4">Hi {user.displayName}</h2>
+            <h2 className="text-2xl font-bold mb-4">Submit Your Review</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -97,7 +98,7 @@ const UserReview = () => {
                 <div className="mb-4">
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-[#53624E] hover:bg-[#AB916C] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                         Submit Review
                     </button>
