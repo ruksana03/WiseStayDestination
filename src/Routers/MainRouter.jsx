@@ -13,7 +13,6 @@ import ManageRooms from "../Pages/Dashnoard/ManageRooms";
 import UpdateRoom from "../Pages/Dashnoard/UpdateRoom";
 import AboutTheHotel from "../Pages/AboutTheHotel";
 import ManageSubscriptions from "../Pages/Dashnoard/ManageSubscriptions";
-import UserReview from "../Pages/UserReview";
 import ManageReview from "../Pages/Dashnoard/ManageReview";
 import RoomDetails from "../Pages/RoomDetails";
 import Rooms from "../Pages/Rooms";
@@ -30,6 +29,7 @@ import ReservationRoom from "../Pages/ReservationRoom";
 import UpdateBookingInfo from "../Components/MyBookingComponents/UpdateBookingInfo";
 import UserReviewForm from "../Components/RoomDetailsComponents/UserReviewForm";
 import OurTestimonial from "../Pages/OurTestimonial";
+import DisplayAvailableRoom from "../Pages/DisplayAvailableRoom";
 
 
 
@@ -89,6 +89,10 @@ const MainRouter = createBrowserRouter([
                     },
                 ]
                 
+            },
+            {
+                path:'/availableRoom',
+                element:<PrivateRouter><DisplayAvailableRoom></DisplayAvailableRoom></PrivateRouter>
             },
             {
                 path:'/roomDetails/:id',
