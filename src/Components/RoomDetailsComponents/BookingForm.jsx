@@ -3,7 +3,7 @@
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BookingForm = ({ roomNo, price, discount }) => {
@@ -15,12 +15,12 @@ const BookingForm = ({ roomNo, price, discount }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [withDiscountTotalPrice, setWithDiscountTotalPrice] = useState(0);
   const [showBookingSummary, setShowBookingSummary] = useState(false);
+  // const [isRoomAvailable, setIsRoomAvailable] = useState(true);
 
 
 
 
   const handleBookingSummary = () => {
-    // Calculate total and discounted total price for display in the summary
     const checkInDate = new Date(formRef.current.checkInDate.value);
     const checkOutDate = new Date(formRef.current.checkOutDate.value);
     const oneDayMilliseconds = 24 * 60 * 60 * 1000;
@@ -30,18 +30,15 @@ const BookingForm = ({ roomNo, price, discount }) => {
       ? parseFloat(formRef.current.discount.value)
       : 0;
 
-    // Calculate the total price
     const calculatedTotalPrice = totalDays * numericPrice;
     setTotalPrice(calculatedTotalPrice)
 
-    // Apply discount if available
     let calculatedWithDiscountTotalPrice = calculatedTotalPrice;
     if (!isNaN(numericDiscount) && isFinite(numericDiscount)) {
       const discountAmount = (numericDiscount / 100) * calculatedTotalPrice;
       calculatedWithDiscountTotalPrice = calculatedTotalPrice - discountAmount;
     }
     setWithDiscountTotalPrice(calculatedWithDiscountTotalPrice)
-    // console.log(calculatedTotalPrice, calculatedWithDiscountTotalPrice);
 
     setShowBookingSummary(true);
   };
@@ -66,6 +63,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
       booking.checkInDate, 
       booking.checkOutDate
       );
+      // setIsRoomAvailable(isRoomAvailable);
     if (isRoomAvailable) {
       try {
         const response = await axios.post('http://localhost:5000/booking', booking);
@@ -191,7 +189,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
             <p>Check-in Date: {formRef.current.checkInDate.value}</p>
             <p>Check-out Date: {formRef.current.checkOutDate.value}</p>
             <p>Number of Guests: {formRef.current.guestNumber.value}</p>
-            {/* <p>{response.data.available}</p> */}
+            {/* <p>Room Availability: {isRoomAvailable ? 'Available' : 'Not Available'}</p>s */}
             <p>Room No: {roomNo}</p>
             <p>Price/Night (BDT): {price}</p>
             <p>Total Price: {totalPrice}</p>
