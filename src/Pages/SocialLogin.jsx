@@ -3,14 +3,15 @@ import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import Loader from "../Components/Shared/Loader";
-// import { AiFillGoogleCircle, AiFillGithub, AiFillLinkedin, AiOutlineMail } from "react-icons/ai";
-// import Loader from "../components/Shared/Loader";
-
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
 
     const { googleLogin, loading } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from || '/';
 
 
     const handleSocialLogin = (media) => {
@@ -24,6 +25,7 @@ const SocialLogin = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                navigate(from)
 
             })
             .catch(err => {

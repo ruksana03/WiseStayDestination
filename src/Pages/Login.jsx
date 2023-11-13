@@ -7,12 +7,14 @@ import Loader from "../Components/Shared/Loader";
 
 const Login = () => {
     const { signIn, loading } = useAuth();
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || '/';
+            
     const handleSubmit = (event) => {
         event.preventDefault();
 
         // get field values 
-
         const email = event.target.email.value;
         const password = event.target.password.value;
 
@@ -24,12 +26,8 @@ const Login = () => {
                 text: 'Password must be at least 6 characters',
                 footer: '<a href="">Why do I have this issue?</a>'
             })
-            // toast.error('Password must be at least 6 characters');
             return;
         }
-
-
-
 
         // creating a new user
         signIn(email, password)
@@ -42,6 +40,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                navigate(from)
 
             })
             .catch(error => console.log(error))
@@ -55,9 +54,6 @@ const Login = () => {
             {loading ? <Loader /> : null}
             <div className="flex flex-col items-center lg:flex-row  gap-4 bg-[#EEF1F6] dark:bg-[#363739] w-full lg:justify-between lg:pr-28">
                 <div className=" w-full lg:w-1/2 lg:p-28 "
-                // style={{
-                //     backgroundImage: `url(${bgImg3})`,
-                //     backgroundSize: 'cover'}}
                 >
 
                     <div className="text-lg text-center py-6">

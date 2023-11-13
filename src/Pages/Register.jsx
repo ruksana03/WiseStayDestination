@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import SocialLogin from "./SocialLogin";
 import { useContext } from "react";
@@ -8,7 +8,11 @@ import Loader from "../Components/Shared/Loader";
 
 const Register = () => {
 
-    const { createUser, loading,handleUpdateProfile } = useContext(AuthContext);
+    const { createUser, loading, handleUpdateProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from || '/';
 
     const handleSubmit = async(event) => {
         event.preventDefault();
@@ -29,22 +33,15 @@ const Register = () => {
                 text: 'Password must be at least 6 characters',
                 footer: '<a href="">Why do I have this issue?</a>'
             })
-            // toast.error('Password must be at least 6 characters');
             return;
         }
 
         // creating a new user
         try {
-            // Create a new user with email and password
             const userCredential = await createUser(email, password);
-            
-            // Get the newly created user
             const user = userCredential.user;
-
-            // Update the user's profile with additional information
             await handleUpdateProfile(name, img);
 
-            // Show success message
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -52,15 +49,13 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+            navigate(from)
             
             console.log(user);
         } catch (error) {
             console.error(error);
-            // Handle error
         }
     };
-
-
 
 
 
