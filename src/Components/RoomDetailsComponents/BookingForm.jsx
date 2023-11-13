@@ -3,7 +3,7 @@
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BookingForm = ({ roomNo, price, discount }) => {
@@ -12,6 +12,41 @@ const BookingForm = ({ roomNo, price, discount }) => {
   const goto = useNavigate();
 
   const [booked, setBooked] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [withDiscountTotalPrice, setWithDiscountTotalPrice] = useState(0);
+  const [showBookingSummary, setShowBookingSummary] = useState(false);
+
+
+
+
+  const handleBookingSummary = () => {
+    // Calculate total and discounted total price for display in the summary
+    const checkInDate = new Date(formRef.current.checkInDate.value);
+    const checkOutDate = new Date(formRef.current.checkOutDate.value);
+    const oneDayMilliseconds = 24 * 60 * 60 * 1000;
+    const totalDays = Math.round((checkOutDate - checkInDate) / oneDayMilliseconds);
+    const numericPrice = parseFloat(formRef.current.roomPrice.value);
+    const numericDiscount = !isNaN(parseFloat(formRef.current.discount.value))
+      ? parseFloat(formRef.current.discount.value)
+      : 0;
+
+    // Calculate the total price
+    const calculatedTotalPrice = totalDays * numericPrice;
+    setTotalPrice(calculatedTotalPrice)
+
+    // Apply discount if available
+    let calculatedWithDiscountTotalPrice = calculatedTotalPrice;
+    if (!isNaN(numericDiscount) && isFinite(numericDiscount)) {
+      const discountAmount = (numericDiscount / 100) * calculatedTotalPrice;
+      calculatedWithDiscountTotalPrice = calculatedTotalPrice - discountAmount;
+    }
+    setWithDiscountTotalPrice(calculatedWithDiscountTotalPrice)
+    // console.log(calculatedTotalPrice, calculatedWithDiscountTotalPrice);
+
+    setShowBookingSummary(true);
+  };
+
+
 
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -23,16 +58,15 @@ const BookingForm = ({ roomNo, price, discount }) => {
       checkOutDate: form.checkOutDate?.value || "not-Given",
       guestNumber: form.guestNumber?.value || "Not-Given",
       roomNum: form.roomNum?.value || "not-Given",
-      roomPrice: form.roomPrice?.value || "not-Given",
-      discount: form.discount?.value || "not-Given",
+      roomPrice: form.roomPrice?.value || 0,
+      discount: form.discount?.value || 0,
     };
 
-    // Step 1: Check Room Availability
-    const isRoomAvailable = await checkRoomAvailability(booking.roomNum, booking.checkInDate, booking.checkOutDate);
-
-    // Step 2: Handle Booking
+    const isRoomAvailable = await checkRoomAvailability(booking.roomNum, 
+      booking.checkInDate, 
+      booking.checkOutDate
+      );
     if (isRoomAvailable) {
-      // Room is available, proceed with booking
       try {
         const response = await axios.post('http://localhost:5000/booking', booking);
         console.log('Booking successful:', response.data);
@@ -52,7 +86,6 @@ const BookingForm = ({ roomNo, price, discount }) => {
           text: 'An error occurred while processing your booking. Please try again later.',})
       }
     } else {
-      // Room is not available, handle accordingly (e.g., show an error message)
       console.log('Room not available for the selected dates');
       Swal.fire({
         icon: 'error',
@@ -150,7 +183,23 @@ const BookingForm = ({ roomNo, price, discount }) => {
             </>
           ) : null
         }
-        <button type="submit">Book Now</button>
+        <button type="button" className="border border-red-950 my-4 py-2 hover:font-bold hover:border-2" onClick={handleBookingSummary}>Booking Summary</button>
+        {showBookingSummary && (
+          <div className="booking-summary border border-amber-800 p-2 mb-4">
+            <h3 className="text-center font-bold">Your Booking</h3>
+            <p>Email: {user.email}</p>
+            <p>Check-in Date: {formRef.current.checkInDate.value}</p>
+            <p>Check-out Date: {formRef.current.checkOutDate.value}</p>
+            <p>Number of Guests: {formRef.current.guestNumber.value}</p>
+            {/* <p>{response.data.available}</p> */}
+            <p>Room No: {roomNo}</p>
+            <p>Price/Night (BDT): {price}</p>
+            <p>Total Price: {totalPrice}</p>
+            {discount && <p>Discount (%): {discount}</p>}
+            <p>Total Price (With discount): {withDiscountTotalPrice}</p>
+          </div>
+        )}
+        <button type="submit" className="border border-red-950 mb-4 py-2 hover:font-bold hover:border-2">Book Now</button>
       </form>
       {booked && <p>Booking successful!</p>}
     </div>

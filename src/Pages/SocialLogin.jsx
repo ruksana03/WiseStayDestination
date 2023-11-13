@@ -5,6 +5,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import Loader from "../Components/Shared/Loader";
 import { useLocation, useNavigate } from "react-router-dom";
 
+
 const SocialLogin = () => {
 
     const { googleLogin, loading } = useAuth();

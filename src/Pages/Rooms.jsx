@@ -6,6 +6,7 @@ import RoomCard from "../Components/RoomsPageComponents/RoomCard";
 import Loader from "../Components/Shared/Loader";
 import { useState } from "react";
 import FilteredRooms from "../Components/RoomsPageComponents/FilteredRooms";
+import { Helmet } from "react-helmet";
 
 const Rooms = () => {
 
@@ -27,6 +28,10 @@ const Rooms = () => {
 
     return (
         <div className="font-poppins">
+            <Helmet>
+                <title>Rooms </title>
+                <meta name="description" content="Description for the home page" />
+            </Helmet>
             <div>
                 <RoomPageBanner></RoomPageBanner>
             </div>

@@ -3,6 +3,7 @@ import BookingList from "../Components/MyBookingComponents/BookingList";
 import Loader from "../Components/Shared/Loader";
 import useAuth from "../Hooks/useAuth";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 
 
@@ -37,6 +38,10 @@ const MyBooking = () => {
 
     return (
         <div>
+              <Helmet>
+                <title>My Bookings</title>
+                <meta name="description" content="Description for the home page" />
+            </Helmet>
             <h2>Bookings for {user.email}</h2>
 
             <div>

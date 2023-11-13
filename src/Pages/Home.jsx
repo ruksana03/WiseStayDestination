@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import HomeBanner from "../Components/HomeComponents/HomeBanner/HomeBanner";
 import NewsletterMap from "../Components/HomeComponents/NewsletterMap";
 import SpecialOffer from "../Components/HomeComponents/Offer/SpecialOffer";
@@ -11,6 +12,10 @@ import FilterFeaturedRooms from "../Components/HomeComponents/WithDescountFeatur
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                <title>Home</title>
+                <meta name="description" content="Description for the home page" />
+            </Helmet>
             <div>
                 <HomeBanner></HomeBanner>
             </div>

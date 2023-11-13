@@ -3,6 +3,7 @@ import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
 import SocialLogin from "./SocialLogin";
 import Loader from "../Components/Shared/Loader";
+import { Helmet } from "react-helmet";
 
 
 const Login = () => {
@@ -50,6 +51,10 @@ const Login = () => {
 
     return (
         <div className="font-poppins">
+              <Helmet>
+                <title>LogIn</title>
+                <meta name="description" content="Description for the home page" />
+            </Helmet>
 
             {loading ? <Loader /> : null}
             <div className="flex flex-col items-center lg:flex-row  gap-4 bg-[#EEF1F6] dark:bg-[#363739] w-full lg:justify-between lg:pr-28">

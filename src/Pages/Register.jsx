@@ -4,6 +4,7 @@ import SocialLogin from "./SocialLogin";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Loader from "../Components/Shared/Loader";
+import { Helmet } from "react-helmet";
 
 
 const Register = () => {
@@ -62,6 +63,10 @@ const Register = () => {
 
     return (
         <div className="font-poppins">
+            <Helmet>
+                <title>Registration </title>
+                <meta name="description" content="Description for the home page" />
+            </Helmet>
             {loading ? <Loader /> : null}
 
             <div className="flex flex-col items-center lg:flex-row  gap-4 bg-[#EEF1F6]  w-full lg:justify-between lg:pr-28" >

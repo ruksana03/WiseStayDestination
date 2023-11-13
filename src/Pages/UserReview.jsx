@@ -31,7 +31,6 @@ const UserReview = () => {
             setRating(0);
             setComment("");
 
-            // Show success message using Swal
             Swal.fire({
                 icon: 'success',
                 title: 'Review Submitted!',
@@ -40,8 +39,6 @@ const UserReview = () => {
         })
         .catch((error) => {
             console.error(error);
-
-            // Show error message using Swal
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
