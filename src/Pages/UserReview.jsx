@@ -2,6 +2,7 @@ import { useState } from "react";
 import Rating from "react-rating-stars-component";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -24,11 +25,29 @@ const UserReview = () => {
         console.log("Review Data:", reviewData);
 
         axios
-              .post("http://localhost:5000/reviews", reviewData)
-              .then((res) => console.log(res))
-              .catch((error) => console.error(error));
-        setRating(0);
-        setComment("");
+        .post("http://localhost:5000/reviews", reviewData)
+        .then((res) => {
+            console.log(res);
+            setRating(0);
+            setComment("");
+
+            // Show success message using Swal
+            Swal.fire({
+                icon: 'success',
+                title: 'Review Submitted!',
+                text: 'Thank you for sharing your experience with us.',
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+
+            // Show error message using Swal
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong. Please try again.',
+            });
+        });
     };
 
     return (
