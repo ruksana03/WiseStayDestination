@@ -3,7 +3,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';  // Remove Navigation import
 import BannerSwiper from './BannerSwiper';
-// import HomeBannerText from './HomeBannerText';
 import Availability from './Availability';
 
 
@@ -34,11 +33,11 @@ const HomeBanner = () => {
                 ))}
             </Swiper>
             <div>
-                <Availability></Availability>
-            </div>
+          <Availability />
+        </div>
+            
         </div>
     );
 };
 
 export default HomeBanner;
-
