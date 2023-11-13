@@ -41,7 +41,9 @@ const BookingForm = ({ roomNo, price, discount }) => {
           title: 'Booking Successful!',
           text: 'Your booking has been confirmed.',
         });
+        goto('/myBookings');
         setBooked(true);
+        
       } catch (error) {
         console.error('Error while booking:', error);
         Swal.fire({
@@ -57,6 +59,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
         title: 'Room Not Available',
         text: 'The selected room is not available for the specified dates. Please choose a different room or date range.',})
     }
+    goto('/rooms');
   };
 
   // Function to check room availability
