@@ -8,9 +8,9 @@ import Loader from "../Components/Shared/Loader";
 
 const Register = () => {
 
-    const { createUser, loading } = useContext(AuthContext);
+    const { createUser, loading,handleUpdateProfile } = useContext(AuthContext);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
 
         // get field values 
@@ -18,6 +18,7 @@ const Register = () => {
         const email = event.target.email.value;
         const img = event.target.img.value;
         const password = event.target.password.value;
+
         console.log(name, email, img, password);
 
         // validation 
@@ -33,21 +34,35 @@ const Register = () => {
         }
 
         // creating a new user
-        createUser(email, password)
-            .then(res => {
-                console.log(res);
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Your work has been saved',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            })
-            .catch(error => console.log(error))
+        try {
+            // Create a new user with email and password
+            const userCredential = await createUser(email, password);
+            
+            // Get the newly created user
+            const user = userCredential.user;
+
+            // Update the user's profile with additional information
+            await handleUpdateProfile(name, img);
+
+            // Show success message
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Successfully Registered',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            
+            console.log(user);
+        } catch (error) {
+            console.error(error);
+            // Handle error
+        }
+    };
 
 
-    }
+
+
 
 
     return (
@@ -57,11 +72,6 @@ const Register = () => {
             <div className="flex flex-col items-center lg:flex-row  gap-4 bg-[#EEF1F6]  w-full lg:justify-between lg:pr-28" >
 
                 <div className=" w-full lg:w-1/2 lg:p-28 "
-                //  style={{
-                //     backgroundImage: `url(${bgImg3})`,
-                //     backgroundSize: 'cover',
-
-                // }}
                 >
 
                     <div className="text-lg text-center py-6">
