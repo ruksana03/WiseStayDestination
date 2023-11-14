@@ -2,15 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import RoomPageBanner from "../Components/RoomsPageComponents/RoomPageBanner";
 import { FiPhoneCall } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import RoomCard from "../Components/RoomsPageComponents/RoomCard";
+// import RoomCard from "../Components/RoomsPageComponents/RoomCard";
 import Loader from "../Components/Shared/Loader";
-import { useState } from "react";
+// import { useState } from "react";
 import FilteredRooms from "../Components/RoomsPageComponents/FilteredRooms";
 import { Helmet } from "react-helmet";
+import Availability from "../Components/HomeComponents/HomeBanner/Availability";
 
 const Rooms = () => {
 
-   
+
 
     const { isPending, error, data } = useQuery({
         queryKey: ['allRoomData'],
@@ -34,6 +35,7 @@ const Rooms = () => {
             </Helmet>
             <div>
                 <RoomPageBanner></RoomPageBanner>
+                <Availability></Availability>
             </div>
 
             <div className="w-10/12 mx-auto my-6 grid grid-cols-12 gap-4 justify-between">
@@ -72,17 +74,13 @@ const Rooms = () => {
             </div>
 
             <div>
-                <h1 className="text-center text-5xl font-bold my-5 border border-red-800 w-10/12 mx-auto">Our Total Rooms Collection : {data.length}</h1>
-                <div>
-                   <FilteredRooms data={data}></FilteredRooms>
+                <h1 className="text-center text-5xl font-bold mt-5 border border-red-800 w-10/12 mx-auto">Our Total Rooms Collection : {data.length}</h1>
+                <div className="w-10/12 my-1 mb-8  mx-auto">
+                    <Availability></Availability>
                 </div>
-                {/* {
-                    <div className="bg-white shadow-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-10/12 mx-auto border-2 p-2">
-                        {
-                            data.map((singleRoom) => (<RoomCard key={singleRoom._id} singleRoom={singleRoom}></RoomCard>))
-                        }
-                    </div>
-                } */}
+                <div>
+                    <FilteredRooms data={data}></FilteredRooms>
+                </div>
             </div>
 
         </div>

@@ -5,7 +5,6 @@ import Loader from "../../Components/Shared/Loader";
 
 
 const ManageRooms = () => {
-    // const { isPending, error, data,refetch } = useQuery({
     const { isPending, error, data, refetch } = useQuery({
         queryKey: ['repoData'],
         queryFn: () =>

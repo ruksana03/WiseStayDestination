@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Autoplay } from 'swiper/modules';  // Remove Navigation import
+import { Autoplay } from 'swiper/modules'; 
 import BannerSwiper from './BannerSwiper';
 import Availability from './Availability';
 

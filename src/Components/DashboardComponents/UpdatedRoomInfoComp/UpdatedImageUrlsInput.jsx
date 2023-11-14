@@ -1,5 +1,3 @@
-
-
 const UpdatedImageUrlsInput = ({ onUpdatedUrlChange, imageUrls, setUpdatedImageUrls }) => {
   const handleUpdateImageUrlsChange = (index, event) => {
     const updateUrls = [...imageUrls];

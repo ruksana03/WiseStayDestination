@@ -87,12 +87,12 @@ const MainRouter = createBrowserRouter([
                         path:'/rooms/highToLowPriceRooms',
                         element:<PrivateRouter><HighToLowPriceRooms></HighToLowPriceRooms></PrivateRouter>
                     },
+                    {
+                        path:'/rooms/availableRoom',
+                        element:<PrivateRouter><DisplayAvailableRoom></DisplayAvailableRoom></PrivateRouter>
+                    },
                 ]
                 
-            },
-            {
-                path:'/availableRoom',
-                element:<PrivateRouter><DisplayAvailableRoom></DisplayAvailableRoom></PrivateRouter>
             },
             {
                 path:'/roomDetails/:id',

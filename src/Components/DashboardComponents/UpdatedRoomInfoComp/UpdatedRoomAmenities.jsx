@@ -1,5 +1,3 @@
-import  { useState } from 'react';
-
 const UpdatedRoomAmenities = ({selectedUpdatedAmenities,amenities,onChange,selectedAmenities }) => {
 
 
