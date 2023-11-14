@@ -54,7 +54,7 @@ const BookingList = ({ CurrentUserBooking,refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/bookings/${_id}`)
+          .delete(`https://wise-stay-destination-server.vercel.app/bookings/${_id}`)
           .then((res) => {
             if (res.data.deletedCount > 0) {
               Swal.fire("has been deleted!", "success");

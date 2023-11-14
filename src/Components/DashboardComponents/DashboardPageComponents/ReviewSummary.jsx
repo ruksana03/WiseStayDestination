@@ -5,7 +5,7 @@ const ReviewSummary = () => {
     const { isPending, error, data } = useQuery({
         queryKey: ['reviewsSummary'],
         queryFn: () =>
-            fetch('http://localhost:5000/reviews').then(
+            fetch('https://wise-stay-destination-server.vercel.app/reviews').then(
                 (res) => res.json(),
             ),
     })

@@ -19,7 +19,7 @@ const Availability = () => {
       
         try {
           // Fetch data using axios directly inside the event handler
-          const response = await axios.get('http://localhost:5000/availableRooms', {
+          const response = await axios.get('https://wise-stay-destination-server.vercel.app/availableRooms', {
             params: { checkInDate, checkOutDate },
           });
       

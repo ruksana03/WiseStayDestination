@@ -63,7 +63,7 @@ const AddRooms = () => {
 
     //     // Send a POST request to your server to save room details
     axios
-      .post("http://localhost:5000/rooms", room)
+      .post("https://wise-stay-destination-server.vercel.app/rooms", room)
       .then((res) => {
         console.log(res);
         Swal.fire({

@@ -16,7 +16,7 @@ const MyBooking = () => {
     const { isPending, error, data, refetch } = useQuery({
         queryKey: ['repoData'],
         queryFn: () =>
-            fetch('http://localhost:5000/bookings').then(
+            fetch('https://wise-stay-destination-server.vercel.app/bookings').then(
                 (res) => res.json(),
             ),
     })

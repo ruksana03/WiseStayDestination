@@ -97,12 +97,12 @@ const MainRouter = createBrowserRouter([
             {
                 path:'/roomDetails/:id',
                 element:<PrivateRouter><RoomDetails></RoomDetails></PrivateRouter>,
-                loader: ({params}) => fetch(`http://localhost:5000/rooms/${params.id}`)
+                loader: ({params}) => fetch(`https://wise-stay-destination-server.vercel.app/rooms/${params.id}`)
             },
             {
                 path:'/reviewForm/:id',
                 element:<PrivateRouter><UserReviewForm></UserReviewForm></PrivateRouter>,
-                loader: ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader: ({params}) => fetch(`https://wise-stay-destination-server.vercel.app/bookings/${params.id}`)
             },
             {
                 path:'/myBookings',
@@ -111,7 +111,7 @@ const MainRouter = createBrowserRouter([
             {
                 path:'/updateBooking/:id',
                 element:<PrivateRouter><UpdateBookingInfo></UpdateBookingInfo></PrivateRouter>,
-                loader: ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader: ({params}) => fetch(`https://wise-stay-destination-server.vercel.app/bookings/${params.id}`)
             },
         ]
     },
@@ -130,22 +130,22 @@ const MainRouter = createBrowserRouter([
             {
                 path:'/dashboard/manageRooms',
                 element:<PrivateRouter><ManageRooms></ManageRooms></PrivateRouter>,
-                loader: () => fetch("http://localhost:5000/rooms")
+                loader: () => fetch("https://wise-stay-destination-server.vercel.app/rooms")
             },
             {
                 path:'/dashboard/updateRoom/:id',
                 element:<PrivateRouter><UpdateRoom></UpdateRoom></PrivateRouter>,
-                loader: ({params}) => fetch(`http://localhost:5000/rooms/${params.id}`)
+                loader: ({params}) => fetch(`https://wise-stay-destination-server.vercel.app/rooms/${params.id}`)
             },
             {
                 path:'/dashboard/manageSubscriptions',
                 element:<PrivateRouter><ManageSubscriptions></ManageSubscriptions></PrivateRouter>,
-                loader: () => fetch("http://localhost:5000/subscription")
+                loader: () => fetch("https://wise-stay-destination-server.vercel.app/subscription")
             },
             {
                 path:'/dashboard/manageReview',
                 element:<PrivateRouter><ManageReview></ManageReview></PrivateRouter>,
-                loader: () => fetch("http://localhost:5000/reviews")
+                loader: () => fetch("https://wise-stay-destination-server.vercel.app/reviews")
             }
         ]
     }

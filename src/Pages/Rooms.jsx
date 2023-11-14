@@ -16,7 +16,7 @@ const Rooms = () => {
     const { isPending, error, data } = useQuery({
         queryKey: ['allRoomData'],
         queryFn: () =>
-            fetch('http://localhost:5000/rooms').then(
+            fetch('https://wise-stay-destination-server.vercel.app/rooms').then(
                 (res) => res.json(),
             ),
     })

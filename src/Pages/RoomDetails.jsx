@@ -25,7 +25,7 @@ const RoomDetails = () => {
     useEffect(() => {
         const fetchRoomReviews = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/userReviewsForRoom");
+                const response = await axios.get("https://wise-stay-destination-server.vercel.app/userReviewsForRoom");
                 const allRoomReviews = response.data;
 
                 const filteredReviews = allRoomReviews.filter(review => review.roomNum === roomNo);

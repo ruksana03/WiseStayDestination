@@ -31,7 +31,7 @@ const UpdateBookingInfo = () => {
         console.log(updateBooking);
 
         axios
-        .put(`http://localhost:5000/bookings/${_id}`, updateBooking)
+        .put(`https://wise-stay-destination-server.vercel.app/bookings/${_id}`, updateBooking)
 
         .then((res) => {
             console.log(res);

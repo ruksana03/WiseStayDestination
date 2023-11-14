@@ -35,7 +35,7 @@ const UserReviewForm = () => {
     //     console.log(review);
 
     //     axios
-    //         .post("http://localhost:5000/userReviewsForRoom", review)
+    //         .post("https://wise-stay-destination-server.vercel.app/userReviewsForRoom", review)
     //         .then((res) => {
     //             console.log(res);
     //             Swal.fire({
@@ -82,7 +82,7 @@ const UserReviewForm = () => {
     
     //     try {
     //         // Check if the user has already reviewed this room
-    //         const existingReview = await axios.get(`http://localhost:5000/userReviewsForRoom?username=${username}&roomNum=${roomNum}`);
+    //         const existingReview = await axios.get(`https://wise-stay-destination-server.vercel.app/userReviewsForRoom?username=${username}&roomNum=${roomNum}`);
     
     //         if (existingReview.data.length > 0) {
     //             // User has already reviewed this room, show a Swal error message
@@ -94,7 +94,7 @@ const UserReviewForm = () => {
     //             goto('/myBookings');
     //         } else {
     //             // User hasn't reviewed this room yet, proceed with submission
-    //             const res = await axios.post("http://localhost:5000/userReviewsForRoom", review);
+    //             const res = await axios.post("https://wise-stay-destination-server.vercel.app/userReviewsForRoom", review);
     //             console.log(res);
     //             Swal.fire({
     //                 icon: 'success',
@@ -138,7 +138,7 @@ const UserReviewForm = () => {
         console.log(review);
     
         try {
-            const res = await axios.post("http://localhost:5000/userReviewsForRoom", review);
+            const res = await axios.post("https://wise-stay-destination-server.vercel.app/userReviewsForRoom", review);
             console.log(res);
     
             // Check for the error property in the response

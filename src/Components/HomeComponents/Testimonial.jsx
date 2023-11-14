@@ -15,7 +15,7 @@ const Testimonial = () => {
 
   const fetchData = () => {
     axios
-      .get('http://localhost:5000/reviews')
+      .get('https://wise-stay-destination-server.vercel.app/reviews')
       .then((response) => {
         setData(response.data);
       })

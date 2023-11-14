@@ -25,7 +25,7 @@ const UserReview = () => {
         console.log("Review Data:", reviewData);
 
         axios
-        .post("http://localhost:5000/reviews", reviewData)
+        .post("https://wise-stay-destination-server.vercel.app/reviews", reviewData)
         .then((res) => {
             console.log(res);
             setRating(0);

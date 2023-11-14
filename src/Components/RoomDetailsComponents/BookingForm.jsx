@@ -66,7 +66,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
       // setIsRoomAvailable(isRoomAvailable);
     if (isRoomAvailable) {
       try {
-        const response = await axios.post('http://localhost:5000/booking', booking);
+        const response = await axios.post('https://wise-stay-destination-server.vercel.app/booking', booking);
         console.log('Booking successful:', response.data);
         Swal.fire({
           icon: 'success',
@@ -96,7 +96,7 @@ const BookingForm = ({ roomNo, price, discount }) => {
   // Function to check room availability
   const checkRoomAvailability = async (roomNum, checkInDate, checkOutDate) => {
     try {
-      const response = await axios.get(`http://localhost:5000/checkAvailability?roomNum=${roomNum}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
+      const response = await axios.get(`https://wise-stay-destination-server.vercel.app/checkAvailability?roomNum=${roomNum}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
       return response.data.available; // Assuming the server returns { available: true/false }
     } catch (error) {
       console.error('Error while checking room availability:', error);

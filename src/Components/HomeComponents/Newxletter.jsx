@@ -15,7 +15,7 @@ const Newxletter = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:5000/subscription", subscriptions);
+            const response = await axios.post("https://wise-stay-destination-server.vercel.app/subscription", subscriptions);
             console.log("Subscription success:", response.data);
         } catch (error) {
             console.error("Subscription error:", error);

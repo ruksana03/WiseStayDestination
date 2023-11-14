@@ -8,7 +8,7 @@ const ManageSubscriptions = () => {
     const { isPending, error, data, refetch } = useQuery({
         queryKey: ['repoData'],
         queryFn: () =>
-            fetch('http://localhost:5000/subscription').then(
+            fetch('https://wise-stay-destination-server.vercel.app/subscription').then(
                 (res) => res.json(),
             ),
     })

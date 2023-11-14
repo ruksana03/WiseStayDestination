@@ -7,7 +7,7 @@ const ManageReview = () => {
     const { isPending, error, data, refetch } = useQuery({
         queryKey: ['repoData'],
         queryFn: () =>
-            fetch('http://localhost:5000/reviews').then(
+            fetch('https://wise-stay-destination-server.vercel.app/reviews').then(
                 (res) => res.json(),
             ),
     })
